@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQE-Nh-njX">
-                                <frame key="frameInset" minX="106" minY="531" width="170" height="30"/>
+                                <frame key="frameInset" minX="64" minY="516" width="262" height="45"/>
                                 <color key="backgroundColor" red="0.55617094992549121" green="0.68707390478712083" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <state key="normal" title="Login With Twitter"/>
                                 <connections>
@@ -29,14 +29,65 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="LQE-Nh-njX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="3.5" id="Imh-Mr-CYh"/>
+                            <constraint firstItem="LQE-Nh-njX" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="7.5" id="Imh-Mr-CYh"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="LQE-Nh-njX" secondAttribute="bottom" constant="106" id="iUA-9z-Vb7"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <segue destination="g2w-4V-lVJ" kind="presentation" identifier="loginSegue" id="W93-Ii-tDF"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+        <!--Tweets View Controller-->
+        <scene sceneID="tOF-le-AFg">
+            <objects>
+                <viewController id="Tsd-1p-y0R" customClass="TweetsViewController" customModule="SimpleTwitter" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="aoV-ST-qi5"/>
+                        <viewControllerLayoutGuide type="bottom" id="yib-Vv-T5q"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="h3G-gD-zUz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="gY4-zu-5cL">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="yib-Vv-T5q" firstAttribute="top" secondItem="gY4-zu-5cL" secondAttribute="bottom" id="5s8-Vc-GJi"/>
+                            <constraint firstItem="gY4-zu-5cL" firstAttribute="top" secondItem="h3G-gD-zUz" secondAttribute="top" id="DOH-gE-tUT"/>
+                            <constraint firstItem="gY4-zu-5cL" firstAttribute="leading" secondItem="h3G-gD-zUz" secondAttribute="leading" id="FyO-ff-x7A"/>
+                            <constraint firstAttribute="trailing" secondItem="gY4-zu-5cL" secondAttribute="trailing" id="uP2-pL-aYX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="OFu-fr-geu"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PWa-e6-ovC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1992.8" y="137.18140929535232"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="clt-Ma-GQj">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="g2w-4V-lVJ" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Hvl-TH-bMX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Tsd-1p-y0R" kind="relationship" relationship="rootViewController" id="q2f-kc-LrQ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5r6-rj-2C7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1053.5999999999999" y="137.18140929535232"/>
         </scene>
     </scenes>
 </document>
