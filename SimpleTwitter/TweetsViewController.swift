@@ -26,6 +26,10 @@ class TweetsViewController: UIViewController {
     }
     
 
+    @IBAction func onLogout(_ sender: AnyObject) {
+        TwitterClient.sharedInstance?.logout()
+    }
+    
     /*
     // MARK: - Navigation
 

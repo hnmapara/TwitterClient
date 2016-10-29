@@ -10,10 +10,18 @@ import UIKit
 import BDBOAuth1Manager
 
 class TwitterClient: BDBOAuth1SessionManager {
+    
     static let sharedInstance = TwitterClient(baseURL: URL(string:"https://api.twitter.com")!, consumerKey: "exPArjPCUVwtqgtLdFDzOXNzx", consumerSecret: "wbQF3u3TqHQSNFoXHZDKFYVZTjS7kkJJ24xmCgwwicMzLtGbxa")
     
     var loginSuccess : (() -> ())?
     var loginFailure : ((Error) ->())?
+    
+    func logout() {
+        User.currentUser = nil
+        deauthorize()
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: User.userDidLogoutNotification), object: nil)
+    }
     
     func login(success:@escaping () -> (), failure:@escaping (Error)->()) {
         loginSuccess = success
@@ -53,11 +61,13 @@ class TwitterClient: BDBOAuth1SessionManager {
         })
     }
     
-    func currentAccount() {
+    func currentAccount(success: @escaping (User) ->(), failure:@escaping (Error) ->()) {
         get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task:URLSessionDataTask, response :Any?) in
             //print("account: \(response)")
             let userDictionary = response as! NSDictionary
             let user = User(dictionary: userDictionary)
+            
+            success(user)
             print("name: \(user.name)")
             print("screenName: \(user.screenName)")
             print("profile url: \(user.profileUrl)")
@@ -65,6 +75,7 @@ class TwitterClient: BDBOAuth1SessionManager {
             
             }, failure: { (task:URLSessionDataTask?, error:Error) in
                 print("error : \(error.localizedDescription)")
+                failure(error)
         })
     }
     
@@ -73,7 +84,13 @@ class TwitterClient: BDBOAuth1SessionManager {
         fetchAccessToken(withPath: "oauth/access_token", method: "POST", requestToken: requestToken, success: { (accessToken:BDBOAuth1Credential?) in
             if (accessToken != nil) {
                 print("got accessToken :")
-                self.loginSuccess?()
+                
+                self.currentAccount(success: { (user: User) in
+                        User.currentUser = user
+                        self.loginSuccess?()
+                    }, failure: { (error: Error) in
+                        self.loginFailure?(error)
+                })
                 
             } else {
                 print("failed :no accessToken")
