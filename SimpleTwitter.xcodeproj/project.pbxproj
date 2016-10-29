@@ -12,6 +12,8 @@
 		21E1CF571DC44A0700438DDC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21E1CF551DC44A0700438DDC /* Main.storyboard */; };
 		21E1CF591DC44A0700438DDC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 21E1CF581DC44A0700438DDC /* Assets.xcassets */; };
 		21E1CF5C1DC44A0700438DDC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 21E1CF5A1DC44A0700438DDC /* LaunchScreen.storyboard */; };
+		21E1CF681DC549CE00438DDC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E1CF671DC549CE00438DDC /* User.swift */; };
+		21E1CF6A1DC549DE00438DDC /* Tweet.swift in Sources */ = {isa = PBXBuildFile; fileRef = 21E1CF691DC549DE00438DDC /* Tweet.swift */; };
 		3F939DA56B8F12D4C8424740 /* Pods_SimpleTwitter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20B9332636B8078BEC2AB5D3 /* Pods_SimpleTwitter.framework */; };
 /* End PBXBuildFile section */
 
@@ -25,6 +27,8 @@
 		21E1CF581DC44A0700438DDC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		21E1CF5B1DC44A0700438DDC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		21E1CF5D1DC44A0700438DDC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		21E1CF671DC549CE00438DDC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		21E1CF691DC549DE00438DDC /* Tweet.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Tweet.swift; sourceTree = "<group>"; };
 		22B82B2407B0EF28D85E1CC2 /* Pods-SimpleTwitter.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleTwitter.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleTwitter/Pods-SimpleTwitter.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -61,6 +65,7 @@
 		21E1CF501DC44A0700438DDC /* SimpleTwitter */ = {
 			isa = PBXGroup;
 			children = (
+				21E1CF661DC549A200438DDC /* API */,
 				21E1CF651DC44B1600438DDC /* Views */,
 				21E1CF641DC44B1000438DDC /* Model */,
 				21E1CF631DC44B0600438DDC /* View Controller */,
@@ -84,6 +89,8 @@
 		21E1CF641DC44B1000438DDC /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				21E1CF671DC549CE00438DDC /* User.swift */,
+				21E1CF691DC549DE00438DDC /* Tweet.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -93,6 +100,13 @@
 			children = (
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		21E1CF661DC549A200438DDC /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = API;
 			sourceTree = "<group>";
 		};
 		A2F41F3EC911002F053A8B8D /* Pods */ = {
@@ -237,6 +251,8 @@
 			files = (
 				21E1CF541DC44A0700438DDC /* LoginViewController.swift in Sources */,
 				21E1CF521DC44A0700438DDC /* AppDelegate.swift in Sources */,
+				21E1CF681DC549CE00438DDC /* User.swift in Sources */,
+				21E1CF6A1DC549DE00438DDC /* Tweet.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

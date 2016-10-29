@@ -52,25 +52,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("got accessToken :")
                 twitterClient?.get("1.1/account/verify_credentials.json", parameters: nil, progress: nil, success: { (task:URLSessionDataTask, response :Any?) in
                         //print("account: \(response)")
-                        let user = response as! NSDictionary
-                        print("name: \(user["name"])")
-                        print("screenName: \(user["screen_name"])")
-                        print("profile url: \(user["profile_image_url_https"])")
-                        print("description: \(user["description"])")
+                        let userDictionary = response as! NSDictionary
+                        let user = User(dictionary: userDictionary)
+                        print("name: \(user.name)")
+                        print("screenName: \(user.screenName)")
+                        print("profile url: \(user.profileUrl)")
+                        print("description: \(user.tagLine)")
                     
                     }, failure: { (task:URLSessionDataTask?, error:Error) in
                         print("error : \(error.localizedDescription)")
                 })
                 
-//                twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task:URLSessionDataTask, response :Any?) in
-//                    //print("account: \(response)")
-//                    let tweets = response as! [NSDictionary]
-//                    for tweet in tweets {
-//                        print("\(tweet["text"]!)")
-//                    }
-//                    }, failure: { (task:URLSessionDataTask?, error:Error) in
-//                        print("error : \(error.localizedDescription)")
-//                })
+                twitterClient?.get("1.1/statuses/home_timeline.json", parameters: nil, progress: nil, success: { (task:URLSessionDataTask, response :Any?) in
+                    //print("account: \(response)")
+                    let tweetDictionaries = response as! [NSDictionary]
+                    let tweets = Tweet.tweetsWithArray(dictionaries: tweetDictionaries)
+                    for tweet in tweets {
+                        print("\(tweet.text!)")
+                    }
+                    }, failure: { (task:URLSessionDataTask?, error:Error) in
+                        print("error : \(error.localizedDescription)")
+                })
             } else {
                     print("empty accessToken :")
             }
