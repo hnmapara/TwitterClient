@@ -14,11 +14,23 @@ class Tweet: NSObject {
     var timeStamp: Date?
     var retweetCount : Int = 0
     var favoriteCount : Int = 0
+    var userImageUrl : URL?
+    var authorName: String?
+    var authorScreenName : String?
     
     init(dictionary: NSDictionary) {
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoriteCount = (dictionary["retweet_count"] as? Int) ?? 0
+        
+        if let user = dictionary["user"] as? NSDictionary {
+            let profileUrlString = user["profile_image_url_https"] as? String
+            if let profileUrlString = profileUrlString {
+                userImageUrl = URL(string: profileUrlString)
+            }
+            authorName = user["name"] as? String
+            authorScreenName = user["screen_name"] as? String            
+        }
         
         let timeStampString = dictionary["created_at"] as? String
         
