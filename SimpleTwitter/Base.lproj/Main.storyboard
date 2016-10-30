@@ -79,16 +79,43 @@
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="I have seen the future of newspaper here at http://times.com" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ON-FR-xCN">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="I have seen the future of newspaper here at http://times.com" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ON-FR-xCN">
+                                                    <frame key="frameInset" minX="60" minY="20" width="313" height="31"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="4h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqu-Me-DTb">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="4h" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cqu-Me-DTb">
+                                                    <frame key="frameInset" minX="354" minY="2" width="16" height="16"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="31" translatesAutoresizingMaskIntoConstraints="NO" id="sIY-lP-cIF">
+                                                    <subviews>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon-reply" translatesAutoresizingMaskIntoConstraints="NO" id="LbA-8G-URW">
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="25" id="1jf-gq-rbX"/>
+                                                                <constraint firstAttribute="width" constant="25" id="jmV-Rr-vQI"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_retweet" translatesAutoresizingMaskIntoConstraints="NO" id="MM8-Be-dLb">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="0On-pZ-b1o"/>
+                                                                <constraint firstAttribute="height" constant="25" id="OPR-nt-CLw"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="twitter_star_empty" highlightedImage="twitter_starred" translatesAutoresizingMaskIntoConstraints="NO" id="hNg-9x-y09">
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="25" id="EIa-MS-51A"/>
+                                                                <constraint firstAttribute="height" constant="25" id="nan-Xv-Fz8"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="200" id="hPq-7Z-f6n"/>
+                                                    </constraints>
+                                                </stackView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="1ON-FR-xCN" secondAttribute="trailing" constant="2" id="1mt-D6-0Ng"/>
@@ -104,7 +131,10 @@
                                                 <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="ubh-LH-z07" secondAttribute="bottom" constant="8" id="iQV-hH-S8q"/>
                                                 <constraint firstItem="Cqu-Me-DTb" firstAttribute="top" secondItem="lww-ol-Sal" secondAttribute="top" constant="2" id="iwe-Me-6eY"/>
                                                 <constraint firstItem="ERU-oI-vUr" firstAttribute="leading" secondItem="k7E-O3-mJp" secondAttribute="trailing" constant="4" id="lJB-ZM-3EH"/>
+                                                <constraint firstItem="sIY-lP-cIF" firstAttribute="leading" secondItem="1ON-FR-xCN" secondAttribute="leading" id="nlj-5j-x3x"/>
+                                                <constraint firstAttribute="bottom" secondItem="sIY-lP-cIF" secondAttribute="bottom" constant="3" id="oSL-9L-YYo"/>
                                                 <constraint firstItem="k7E-O3-mJp" firstAttribute="leading" secondItem="ubh-LH-z07" secondAttribute="trailing" constant="4" id="oma-2M-Lcq"/>
+                                                <constraint firstItem="sIY-lP-cIF" firstAttribute="top" secondItem="1ON-FR-xCN" secondAttribute="bottom" constant="4" id="riI-Is-FwO"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -132,6 +162,7 @@
                                 <action selector="onLogout:" destination="Tsd-1p-y0R" id="XwF-Hd-tH1"/>
                             </connections>
                         </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="New" id="dd8-hc-6xZ"/>
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="gY4-zu-5cL" id="jCG-NY-uCD"/>
@@ -160,4 +191,10 @@
             <point key="canvasLocation" x="1053.5999999999999" y="137.18140929535232"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icon-reply" width="35" height="35"/>
+        <image name="icon_retweet" width="33" height="21"/>
+        <image name="twitter_star_empty" width="35" height="35"/>
+        <image name="twitter_starred" width="35" height="35"/>
+    </resources>
 </document>
