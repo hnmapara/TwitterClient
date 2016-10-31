@@ -99,5 +99,13 @@ class TwitterClient: BDBOAuth1SessionManager {
                 self.loginFailure?(error!)
         })
 
-    }    
+    }
+    
+    func favoriteThisTweet(with tweetId: Int64, success:()->(), failure: (Error) ->()) {
+        post("1.1/favorites/create.json?id=\(tweetId)", parameters: nil, progress: nil, success: { (URLSessionDataTask, Any) in
+               print("tweet markes as favorit")
+            }) { (URLSessionDataTask, Error) in
+                print("failed to favorite tweet ")
+        }
+    }
 }

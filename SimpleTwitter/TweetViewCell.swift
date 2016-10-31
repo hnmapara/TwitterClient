@@ -17,6 +17,8 @@ class TweetViewCell: UITableViewCell {
     @IBOutlet weak var userIdLabel: UILabel!
     @IBOutlet weak var tweetText: UILabel!
     @IBOutlet weak var timelabel: UILabel!
+    @IBOutlet weak var favoriteImageButton: UIImageView!
+    @IBOutlet weak var replyImageButton: UIImageView!
     
     var tweet: Tweet! {
         didSet{
@@ -44,7 +46,7 @@ class TweetViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         userImage.layer.cornerRadius = 4
-        userImage.clipsToBounds = true
+        userImage.clipsToBounds = true    
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -52,5 +54,8 @@ class TweetViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
+    
 
 }

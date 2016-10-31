@@ -58,6 +58,13 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         TwitterClient.sharedInstance?.logout()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailViewController = segue.destination as! TweetDetailViewController
+        let cell = sender as! UITableViewCell
+        let indexPath = tableView.indexPath(for: cell)
+        detailViewController.tweet = tweets![indexPath!.row]
+    }
+    
     /*
     // MARK: - Navigation
 

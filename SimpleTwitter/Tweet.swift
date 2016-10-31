@@ -10,6 +10,7 @@ import UIKit
 
 class Tweet: NSObject {
     
+    var id: Int64!
     var text : String?
     var timeStamp: Date?
     var retweetCount : Int = 0
@@ -19,6 +20,8 @@ class Tweet: NSObject {
     var authorScreenName : String?
     
     init(dictionary: NSDictionary) {
+        let twID = dictionary["id"]!
+        id = (twID as! NSNumber).int64Value
         text = dictionary["text"] as? String
         retweetCount = (dictionary["retweet_count"] as? Int) ?? 0
         favoriteCount = (dictionary["retweet_count"] as? Int) ?? 0
