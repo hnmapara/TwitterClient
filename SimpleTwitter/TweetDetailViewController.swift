@@ -19,37 +19,23 @@ class TweetDetailViewController: UIViewController {
     @IBOutlet weak var tweetTime: UILabel!
     @IBOutlet weak var retweetCount: UILabel!
     @IBOutlet weak var favoriteCount: UILabel!
-    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var likeIcon: UIImageView!
+    @IBOutlet weak var replyIcon: UIImageView!
+    @IBOutlet weak var retweetIcon: UIImageView!
     
     var tweet: Tweet!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        if tweet.userImageUrl != nil {
-            self.userImage.setImageWith(tweet.userImageUrl!)
-        }
-        if tweet.authorName != nil {
-            self.authorName.text = tweet.authorName!
-        }
-        if tweet.authorScreenName != nil {
-            self.authorScreenName.text = "@\(tweet.authorScreenName!)"
-        }
-        if tweet.text != nil {
-            self.tweetText.text = tweet.text!
-        }
+        userImage.setImageWith((self.tweet!.user?.profileUrl)!)
+        self.authorName.text = tweet!.user!.name
+        self.authorScreenName.text = "@\(tweet!.user!.screenName!)"
+        self.tweetText.text = tweet.text!
         
-        if tweet.timeStamp != nil {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "MM/dd/yy"
-            self.tweetTime.text = formatter.string(from: tweet.timeStamp!)
-        }
-        
-        self.favoriteCount.text = String(tweet.favoriteCount)
-        self.retweetCount.text = String(tweet.retweetCount)
-        //            favoriteCount.text = tweet.favoriteCount as! String
-        //            retweetCount.text = tweet.retweetCount as! String
-
+        self.tweetTime.text = tweet!.createdAtString;
+        retweetCount.text = "\(tweet!.retweetCount)"
+        favoriteCount.text = "\(tweet!.favCount)"
     }
 
     override func didReceiveMemoryWarning() {
@@ -68,11 +54,38 @@ class TweetDetailViewController: UIViewController {
     }
     */
 
-    @IBAction func onFavorite(_ sender: AnyObject) {
-        TwitterClient.sharedInstance?.favoriteThisTweet(with: tweet.id, success: {
+    func replyTapped(sender: Any?) {
+        let vc = storyboard?.instantiateViewController(withIdentifier: "composeViewController.identifier") as! ComposeViewController!
+        vc?.replyTo = tweet?.user?.screenName
+        vc?.replyToId = tweet?.id
+        navigationController?.pushViewController(vc!, animated: true)
+    }
+    
+    func likeTapped(sender: Any?) {
+        TwitterClient.sharedInstance?.handleLike(like: !(tweet?.favorited)!, id: (tweet?.id!)!, success: { (tweet: Tweet?) in
+            if (self.tweet?.favorited)! {
+                self.likeIcon.image = UIImage(named: "likeGrey")
+            } else {
+                self.likeIcon.image = UIImage(named: "likeRed")
+            }
+            self.favoriteCount.text = "\(tweet!.favCount)"
             
-            }, failure: { (Error) in
-                
-        })
+        }) { (error: Error?) in
+            print(error?.localizedDescription)
+        }
+    }
+    
+    func retweetTapped(sender: Any?) {
+        TwitterClient.sharedInstance?.handleRetweet(retweet: !(tweet?.retweeted)!, id: (tweet?.id!)!, success: { (tweet: Tweet?) in
+            if (self.tweet?.retweeted)! {
+                self.retweetIcon.image = UIImage(named: "retweetGrey")
+            } else {
+                self.retweetIcon.image = UIImage(named: "retweetGreen")
+            }
+            self.retweetCount.text = "\(tweet!.retweetCount)"
+            
+        }) { (error: Error?) in
+            print(error?.localizedDescription)
+        }
     }
 }

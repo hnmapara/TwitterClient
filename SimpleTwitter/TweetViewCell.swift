@@ -9,6 +9,12 @@
 import UIKit
 import AFNetworking
 
+@objc protocol TweetsTableViewCellDelegate {
+    @objc optional func reply(tweet: Tweet?, cell: TweetViewCell)
+    @objc optional func like(tweet: Tweet?, cell: TweetViewCell)
+    @objc optional func retweet(tweet: Tweet?, cell: TweetViewCell)
+}
+
 class TweetViewCell: UITableViewCell {
     
     
@@ -19,27 +25,50 @@ class TweetViewCell: UITableViewCell {
     @IBOutlet weak var timelabel: UILabel!
     @IBOutlet weak var favoriteImageButton: UIImageView!
     @IBOutlet weak var replyImageButton: UIImageView!
+    @IBOutlet weak var retweetImageView: UIImageView!
+    
+    weak var delegate: TweetsTableViewCellDelegate?
     
     var tweet: Tweet! {
         didSet{
-            if tweet.userImageUrl != nil {
-                userImage.setImageWith(tweet.userImageUrl!)
+            userImage.setImageWith((tweet.user?.profileUrl!)!)
+            userNameLabel.text = tweet.user!.name
+            userIdLabel.text = "@\(tweet.user!.screenName!)"
+            tweetText.text = tweet.text!
+            
+//            if tweet.timeStamp != nil {
+//                let formatter = DateFormatter()
+//                formatter.dateFormat = "MM/dd/yy"
+//                timelabel.text = formatter.string(from: tweet.timeStamp!)
+//            }
+            
+            
+//            usernameLabel.text = tweet.user!.name
+//            twitterHandleLabel.text = "@\(tweet.user!.screenName!)"
+//            tweetLabel.text = tweet.text!
+//            
+            if tweet.favorited{
+                favoriteImageButton.image = UIImage(named: "likeRed")
+            } else {
+                favoriteImageButton.image = UIImage(named: "likeGrey")
             }
-            if tweet.authorName != nil {
-                userNameLabel.text = tweet.authorName!
-            }
-            if tweet.authorScreenName != nil {
-                userIdLabel.text = "@\(tweet.authorScreenName!)"
-            }
-            if tweet.text != nil {
-                tweetText.text = tweet.text!
+            if tweet.retweeted{
+                retweetImageView.image = UIImage(named: "retweetGreen")
+            }else{
+                retweetImageView.image = UIImage(named: "retweetGrey")
             }
             
-            if tweet.timeStamp != nil {
-                let formatter = DateFormatter()
-                formatter.dateFormat = "MM/dd/yy"
-                timelabel.text = formatter.string(from: tweet.timeStamp!)
-            }
+            let replyGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TweetViewCell.replyTapped(sender:)))
+            replyImageButton.isUserInteractionEnabled = true
+            replyImageButton.addGestureRecognizer(replyGestureRecognizer)
+            
+            let likeGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TweetViewCell.likeTapped(sender:)))
+            favoriteImageButton.isUserInteractionEnabled = true
+            favoriteImageButton.addGestureRecognizer(likeGestureRecognizer)
+            
+            let retweetGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(TweetViewCell.retweetTapped(sender:)))
+            retweetImageView.isUserInteractionEnabled = true
+            retweetImageView.addGestureRecognizer(retweetGestureRecognizer)
         }
     }
         
@@ -47,6 +76,18 @@ class TweetViewCell: UITableViewCell {
         super.awakeFromNib()
         userImage.layer.cornerRadius = 4
         userImage.clipsToBounds = true    
+    }
+    
+    func replyTapped(sender: Any?) {
+        delegate?.reply!(tweet: tweet, cell: self)
+    }
+    
+    func likeTapped(sender: Any?) {
+        delegate?.like!(tweet: tweet, cell: self)
+    }
+    
+    func retweetTapped(sender: Any?) {
+        delegate?.retweet!(tweet: tweet, cell: self)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

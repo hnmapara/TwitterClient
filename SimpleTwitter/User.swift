@@ -9,23 +9,36 @@
 import UIKit
 
 class User: NSObject {
+    
     var name: String?
     var screenName: String?
+    var userDescription: String?
     var profileUrl : URL?
-    var tagLine: String?
+    var followers: Int?
+    var following: Int?
+    var tweets: Int?
+    var id: Int?
+    var tweetCount: String?
     var dictionary : NSDictionary?
 
     init(dictionary: NSDictionary) {
+    
         self.dictionary = dictionary
+        id = dictionary["id"] as? Int
         name = dictionary["name"] as? String
         screenName = dictionary["screen_name"] as? String
+        followers = dictionary["followers_count"] as? Int
+        following = dictionary["following"] as? Int
+        if let status_count = dictionary["statuses_count"]{
+            tweetCount = "\(status_count)"
+        }
         
         let profileUrlString = dictionary["profile_image_url_https"] as? String
         if let profileUrlString = profileUrlString {
             profileUrl = URL(string: profileUrlString)
         }
         
-        tagLine = dictionary["description"] as? String
+        userDescription = dictionary["description"] as? String
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
@@ -52,6 +65,7 @@ class User: NSObject {
             } else {
                 defaults.set(nil, forKey: "currentUserData")
             }
+            defaults.synchronize()
             
         }
     }
