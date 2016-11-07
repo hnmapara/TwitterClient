@@ -27,9 +27,19 @@ class HamburgerViewController: UIViewController {
     }
     
     var contentViewController : UIViewController! {
-        didSet {
+        didSet(oldContentViewController) {
             //call any method on view just to invoke view
             view.layoutIfNeeded()
+            
+            if oldContentViewController != nil {
+                oldContentViewController.willMove(toParentViewController: nil)
+                oldContentViewController.view.removeFromSuperview()
+                oldContentViewController.didMove(toParentViewController: nil)
+            }
+            
+            contentViewController.willMove(toParentViewController: self)
+            contentViewController.didMove(toParentViewController: self)
+            
             contentView.addSubview(contentViewController.view)
             
             //Close drawer with animation
