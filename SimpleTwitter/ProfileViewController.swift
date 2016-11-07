@@ -74,12 +74,12 @@ class ProfileViewController: UIViewController {
     
     func updateLabels(){
         if(userProfile.profileBannerUrl != nil){
-            //posterBackgroundImageView.setImageWith(userProfile.profileBannerUrl!)
+//            posterBackgroundImageView.setImageWith(userProfile.profileBannerUrl!)
             Util.fadeInImage(posterImageView: posterBackgroundImageView, posterImageUrl: userProfile.profileBannerUrl!)
         }
         
         if(userProfile.profileUrl != nil ){
-            //posterImageView.setImageWith(userProfile.profileUrl!)
+//            posterImageView.setImageWith(userProfile.profileUrl!)
             Util.fadeInImage(posterImageView: posterImageView, posterImageUrl: userProfile.profileUrl!)
         }
         

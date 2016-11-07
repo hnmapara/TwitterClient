@@ -44,6 +44,12 @@ class TweetDetailViewController: UIViewController {
     }
     
 
+    @IBAction func onTapUserImage(_ sender: UITapGestureRecognizer) {
+        let profileViewController = self.storyboard!.instantiateViewController(withIdentifier: "profileViewController") as! ProfileViewController
+        profileViewController.username = tweet!.user!.screenName!
+        self.navigationController?.pushViewController(profileViewController, animated: true)
+
+    }
     /*
     // MARK: - Navigation
 
