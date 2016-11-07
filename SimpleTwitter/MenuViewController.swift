@@ -14,8 +14,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     private var homeTimeLineNavigationViewController : UINavigationController!
     private var mentionTimeLineNavigationViewController : UINavigationController!
+    private var profileViewController : UIViewController!
 
-    var viewControllers : [UINavigationController] = []
+    var viewControllers : [UIViewController] = []
     var hamburgerViewContoller : HamburgerViewController!
     
     override func viewDidLoad() {
@@ -33,14 +34,17 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         mentionTimeLineNavigationViewController = storyBoard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
         let mentionVC = mentionTimeLineNavigationViewController.topViewController as! TweetsViewController
-        mentionVC.isHomeTimeline = true
-        mentionVC.isMentionsTimeline = false
+        mentionVC.isHomeTimeline = false
+        mentionVC.isMentionsTimeline = true
 
+        
+        profileViewController = storyboard!.instantiateViewController(withIdentifier: "profileViewController")
         
         viewControllers.append(homeTimeLineNavigationViewController)
         viewControllers.append(mentionTimeLineNavigationViewController)
+        viewControllers.append(profileViewController)
         
-        hamburgerViewContoller.contentViewController = homeTimeLineNavigationViewController
+        hamburgerViewContoller.contentViewController = profileViewController
     }
 
     override func didReceiveMemoryWarning() {
@@ -49,13 +53,13 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return viewControllers.count
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuViewCell
         
-        let titles = ["Home", "Mentions"]
+        let titles = ["Home", "Mentions", "Profile"]
         cell.ItemLabel.text = titles[indexPath.row]
         
         return cell

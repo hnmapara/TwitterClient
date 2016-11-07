@@ -17,9 +17,9 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var verifiedImageView: UIImageView!
-    @IBOutlet weak var descriptionLabel: ActiveLabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var urlLabel: ActiveLabel!
+    @IBOutlet weak var urlLabel: UILabel!
     @IBOutlet weak var locationViewHeight: NSLayoutConstraint!
     @IBOutlet weak var urlViewHeight: NSLayoutConstraint!
     @IBOutlet weak var followersLabel: UILabel!
@@ -36,13 +36,13 @@ class ProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        urlLabel.handleURLTap { (url : URL) in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
-        
-        descriptionLabel.handleURLTap { (url : URL) in
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
-        }
+//        urlLabel.handleURLTap { (url : URL) in
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
+//        
+//        descriptionLabel.handleURLTap { (url : URL) in
+//            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+//        }
         
         posterImageView.layer.cornerRadius = 8.0
         posterImageView.clipsToBounds = true
@@ -85,7 +85,7 @@ class ProfileViewController: UIViewController {
         
         nameLabel.text = userProfile.name
         usernameLabel.text = "@" + userProfile.screenName!
-        descriptionLabel.text = userProfile.tagline
+        descriptionLabel.text = userProfile.userDescription
         
         if(userProfile.verified == true) {
             verifiedImageView.isHidden = false
