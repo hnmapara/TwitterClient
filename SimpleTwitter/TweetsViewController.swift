@@ -12,6 +12,9 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     
+    var isHomeTimeline : Bool!
+    var isMentionsTimeline : Bool!
+    
     var tweets:[Tweet]!
     
     override func viewDidLoad() {
@@ -21,15 +24,29 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 110
         
-        TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet])->() in
-//            for tweet in tweets {
-//                print("\(tweet.text!)")
-//            }
-            self.tweets = tweets
-            self.tableView.reloadData()
-            }, failure: {(error: Error) -> () in
-                print("error : \(error.localizedDescription)")
-        })
+        if isHomeTimeline == true {
+            TwitterClient.sharedInstance?.homeTimeLine(success: { (tweets: [Tweet])->() in
+                
+                self.reloadFetchedTweets(tweets: tweets)
+                }, failure: {(error: Error) -> () in
+                    print("error : \(error.localizedDescription)")
+            })
+        } else {
+            TwitterClient.sharedInstance?.mentionTimeLine(success: { (tweets: [Tweet])->() in
+                
+                self.reloadFetchedTweets(tweets: tweets)
+                }, failure: {(error: Error) -> () in
+                    print("error : \(error.localizedDescription)")
+            })
+        }
+    }
+    
+    private func reloadFetchedTweets(tweets: [Tweet]) {
+        //            for tweet in tweets {
+        //                print("\(tweet.text!)")
+        //            }
+        self.tweets = tweets
+        self.tableView.reloadData()
     }
 
     override func didReceiveMemoryWarning() {
@@ -78,6 +95,7 @@ class TweetsViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBAction func onLogout(_ sender: AnyObject) {
         TwitterClient.sharedInstance?.logout()
     }
+    
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        let detailViewController = segue.destination as! TweetDetailViewController

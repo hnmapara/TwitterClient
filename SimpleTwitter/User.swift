@@ -16,10 +16,14 @@ class User: NSObject {
     var profileUrl : URL?
     var followers: Int?
     var following: Int?
-    var tweets: Int?
     var id: Int?
     var tweetCount: String?
     var dictionary : NSDictionary?
+    
+    var profileBannerUrl : URL?
+    var descriptionUrl : String?
+    var verified : Bool?
+    var location : String?
 
     init(dictionary: NSDictionary) {
     
@@ -39,6 +43,14 @@ class User: NSObject {
         }
         
         userDescription = dictionary["description"] as? String
+        
+        if let profileBannerUrlString = dictionary["profile_background_image_url_https"] as? String {
+            profileBannerUrl = URL(string : profileBannerUrlString)
+        }
+        
+        location = dictionary["location"] as? String
+        verified = dictionary["verified"] as? Bool
+        descriptionUrl = dictionary["url"] as? String
     }
     
     static let userDidLogoutNotification = "UserDidLogout"
