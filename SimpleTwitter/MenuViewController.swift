@@ -12,6 +12,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet weak var tableView: UITableView!
     
+    @IBOutlet weak var profileImageView: UIImageView!    
+    @IBOutlet weak var profileUserName: UILabel!
+    
     private var homeTimeLineNavigationViewController : UINavigationController!
     private var mentionTimeLineNavigationViewController : UINavigationController!
     private var profileViewController : UIViewController!
@@ -21,6 +24,9 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        profileImageView.setImageWith((User.currentUser?.profileUrl!)!)
+        profileUserName.text = User.currentUser?.name
 
         tableView.delegate = self
         tableView.dataSource = self
