@@ -30,6 +30,8 @@ class MenuViewController: UIViewController, UITableViewDelegate, UITableViewData
 
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.estimatedRowHeight = 40
+        tableView.rowHeight = UITableViewAutomaticDimension
         
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         homeTimeLineNavigationViewController = storyBoard.instantiateViewController(withIdentifier: "TweetsNavigationController") as! UINavigationController
